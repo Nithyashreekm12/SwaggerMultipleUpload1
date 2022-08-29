@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringRestMultipleFilesUploadApp<spring-rest-multiple-files-upload>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.roytuts.spring.rest.multiple.files.upload.SpringRestMultipleFilesUploadApp",
+            "projectName": "spring-rest-multiple-files-upload",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

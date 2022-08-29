@@ -1,0 +1,56 @@
+START Zookeper::
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+
+
+STAR Kafka::
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+
+Creating a topic:
+kafka-topics.bat --create --topic first_topic partition 3 replication-format 1 --bootstrap-server localhost:9092
+
+producer:
+kafka-console-producer.bat --broker-list localhost:9092 --topic first_topic
+
+push the data from file to kafka producer:
+kafka-console-producer.bat --broker-list localhost:9092 --topic topic1 < C:\details
+
+consumer:
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic first_topic --from-beginning
+
+
+To check list of topics:
+kafka-topics.bat --bootstrap-server localhost:9092 --list
+
+To get the description
+kafka-topics.bat --topic third_topic --bootstrap-server localhost:9092 --describe
+
+Kafka consumers Group by:
+kafka-console-consumer --bootstrap-server localhost:9092 --topic --first_topic --group my-first-application
+
+To list the groups:
+kafka-consumer-groups --bootstrap-server localhost:9092 --list
+
+To describe the consumer groups:
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group my-first-application
+
+Resetting offsets:
+kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-application --reset-offsets --shift-by -2 --execute --topic first-topic
+
+kafka properties
+ConsumerConfig values: \r\n\tallow.auto.create.topics = true\r\n\tauto.commit.interval.ms = 5000\r\n\tauto.offset.reset = latest\r\n\tbootstrap.servers = [localhost:9092]\r\n\tcheck.crcs = true\r\n\tclient.dns.lookup = use_all_dns_ips\r\n\tclient.id = consumer-GreetingService-JSON-1\r\n\tclient.rack = \r\n\tconnections.max.idle.ms = 540000\r\n\tdefault.api.timeout.ms = 60000\r\n\tenable.auto.commit = false\r\n\texclude.internal.topics = true\r\n\tfetch.max.bytes = 52428800\r\n\tfetch.max.wait.ms = 500\r\n\tfetch.min.bytes = 1\r\n\tgroup.id = GreetingService-JSON\r\n\tgroup.instance.id = null\r\n\theartbeat.interval.ms = 3000\r\n\tinterceptor.classes = []\r\n\tinternal.leave.group.on.close = true\r\n\tinternal.throw.on.fetch.stable.offset.unsupported = false\r\n\tisolation.level = read_uncommitted\r\n\tkey.deserializer = class org.apache.kafka.common.serialization.StringDeserializer\r\n\tmax.partition.fetch.bytes = 1048576\r\n\tmax.poll.interval.ms = 300000\r\n\tmax.poll.records = 500\r\n\tmetadata.max.age.ms = 300000\r\n\tmetric.reporters = []\r\n\tmetrics.num.samples = 2\r\n\tmetrics.recording.level = INFO\r\n\tmetrics.sample.window.ms = 30000\r\n\tpartition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]\r\n\treceive.buffer.bytes = 65536\r\n\treconnect.backoff.max.ms = 1000\r\n\treconnect.backoff.ms = 50\r\n\trequest.timeout.ms = 30000\r\n\tretry.backoff.ms = 100\r\n\tsasl.client.callback.handler.class = null\r\n\tsasl.jaas.config = null\r\n\tsasl.kerberos.kinit.cmd = /usr/bin/kinit\r\n\tsasl.kerberos.min.time.before.relogin = 60000\r\n\tsasl.kerberos.service.name = null\r\n\tsasl.kerberos.ticket.renew.jitter = 0.05\r\n\tsasl.kerberos.ticket.renew.window.factor = 0.8\r\n\tsasl.login.callback.handler.class = null\r\n\tsasl.login.class = null\r\n\tsasl.login.connect.timeout.ms = null\r\n\tsasl.login.read.timeout.ms = null\r\n\tsasl.login.refresh.buffer.seconds = 300\r\n\tsasl.login.refresh.min.period.seconds = 60\r\n\tsasl.login.refresh.window.factor = 0.8\r\n\tsasl.login.refresh.window.jitter = 0.05\r\n\tsasl.login.retry.backoff.max.ms = 10000\r\n\tsasl.login.retry.backoff.ms = 100\r\n\tsasl.mechanism = GSSAPI\r\n\tsasl.oauthbearer.clock.skew.seconds = 30\r\n\tsasl.oauthbearer.expected.audience = null\r\n\tsasl.oauthbearer.expected.issuer = null\r\n\tsasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000\r\n\tsasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000\r\n\tsasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100\r\n\tsasl.oauthbearer.jwks.endpoint.url = null\r\n\tsasl.oauthbearer.scope.claim.name = scope\r\n\tsasl.oauthbearer.sub.claim.name = sub\r\n\tsasl.oauthbearer.token.endpoint.url = null\r\n\tsecurity.protocol = PLAINTEXT\r\n\tsecurity.providers = null\r\n\tsend.buffer.bytes = 131072\r\n\tsession.timeout.ms = 45000\r\n\tsocket.connection.setup.timeout.max.ms = 30000\r\n\tsocket.connection.setup.timeout.ms = 10000\r\n\tssl.cipher.suites = null\r\n\tssl.enabled.protocols = [TLSv1.2, TLSv1.3]\r\n\tssl.endpoint.identification.algorithm = https\r\n\tssl.engine.factory.class = null\r\n\tssl.key.password = null\r\n\tssl.keymanager.algorithm = SunX509\r\n\tssl.keystore.certificate.chain = null\r\n\tssl.keystore.key = null\r\n\tssl.keystore.location = null\r\n\tssl.keystore.password = null\r\n\tssl.keystore.type = JKS\r\n\tssl.protocol = TLSv1.3\r\n\tssl.provider = null\r\n\tssl.secure.random.implementation = null\r\n\tssl.trustmanager.algorithm = PKIX\r\n\tssl.truststore.certificates = null\r\n\tssl.truststore.location = null\r\n\tssl.truststore.password = null\r\n\tssl.truststore.type = JKS\r\n\tvalue.deserializer = class org.springframework.kafka.support.serializer.JsonDeserializer\r\n"}
+
+
+Name	Replicas	Partitions	In sync replicas	Replication factor	Under replicated partitions
+topic1	1	1	1	1	0
+public.command.kmd.cnap.examples.spring.boot.rest.kafka.json.greeting.create.request	1	1	1	1	0
+first_topic	1	1	1	1	0
+public.command.kmd.cnap.examples.spring.boot.rest.kafka.json.greeting.create.response	1	1	1	1	0
+third_topic	3	3	3	1	0
+first1	1	1	1	1	0
+second_topic	1	1	1	1	0
+
+
+
+
